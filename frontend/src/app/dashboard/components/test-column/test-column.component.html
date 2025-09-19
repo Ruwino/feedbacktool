@@ -1,0 +1,39 @@
+<div class="subject">
+  <div class="subject-header">
+    <h2 class="subject-title">Voorgestelde toetsen</h2>
+    <div class="dropdown">
+      <button class="dropdown-btn">
+        Sort by
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <path
+            d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"
+          />
+        </svg>
+      </button>
+      <div class="dropdown-list closed">
+        <span class="dropdown-list-item">Duration</span>
+        <span class="dropdown-list-item">Questions</span>
+      </div>
+    </div>
+  </div>
+  <div class="test-list">
+          <span
+            class="error-message no-tests"
+            *ngIf="test.length === 0"
+          >Geen toetsen beschikbaar.</span
+          >
+    <div class="test" *ngFor="let test of test">
+      <div>
+        <span class="test-title">
+          {{ test.name }} - {{ test.duration }} minuten
+        </span>
+          <span class="test-info">
+          10 vragen &nbsp;&nbsp; {{ test.startDate }}
+        </span>
+      </div>
+      <button class="play-btn">
+        <i class="fa-solid fa-play"></i>
+      </button>
+    </div>
+  </div>
+</div>

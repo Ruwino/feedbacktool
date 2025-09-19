@@ -1,0 +1,33 @@
+<div *ngIf="results && results.length > 0; else noStudents">
+  <div *ngFor="let student of results" class="result-item">
+    <button
+      class="student-name"
+      (click)="viewStudentGrades(student.email || '', student.name)"
+    >
+      {{ student.name }}
+    </button>
+    <div class="goal">
+      <span class="test-name"
+        >{{ student.testName || "Onbekende toets" }}:</span
+      >
+      {{ student.goal }}
+    </div>
+    <div class="score">
+      Score: {{ student.score }}%
+      <div class="score-indicator" [ngClass]="getScoreClass(student.score)">
+        <i
+          *ngIf="showThumbsUp(student.score)"
+          class="fa-solid fa-thumbs-up thumb-icon"
+        ></i>
+      </div>
+    </div>
+    <div class="date">{{ student.date }}</div>
+  </div>
+</div>
+<ng-template #noStudents>
+  <p-message
+    severity="error"
+    text="No students found"
+    class="error-message"
+  ></p-message>
+</ng-template>

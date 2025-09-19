@@ -1,0 +1,57 @@
+stages:
+  - install
+  - lint
+  - build
+  - test
+
+install:
+  stage: install
+  image: node:22
+  script:
+    - npm ci
+    - npx ng version
+  tags:
+    - hva
+  only:
+    - branches
+
+lint:
+  stage: lint
+  image: node:22
+  script:
+    - npm ci
+  tags:
+    - hva
+  only:
+    - branches
+
+build:
+  stage: build
+  image: node:22
+  dependencies:
+    - install
+  script:
+    - npm ci
+    - npx ng build --configuration development
+  tags:
+    - hva
+  only:
+    - branches
+
+test:
+  stage: test
+  image: node:22
+  allow_failure: true
+  dependencies:
+    - install
+  before_script:
+    - apt-get update
+    - apt-get install -y chromium
+    - export CHROME_BIN=$(which chromium)
+  script:
+    - npm ci
+    - npx ng test --watch=false --browsers=ChromeHeadlessNoSandbox
+  tags:
+    - hva
+  only:
+    - branches

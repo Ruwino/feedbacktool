@@ -1,0 +1,125 @@
+/* Complete reset van PrimeNG tabel styling */
+:host ::ng-deep .p-datatable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Tabel basis styling */
+:host ::ng-deep .p-datatable table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  background: #f8f9fa;
+  color: #495057;
+  text-align: left;
+  padding: 1rem;
+  border-bottom: 2px solid #e9ecef;
+  font-weight: 600;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem;
+  word-break: break-word;
+}
+
+/* Kolom breedtes - aangepast voor meer ruimte bij uitklapknop */
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th:first-child,
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td:first-child {
+  width: 80px !important; /* Verhoogd voor meer ruimte */
+  min-width: 80px !important;
+  max-width: 80px !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th:last-child,
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td:last-child {
+  width: 150px;
+  max-width: 150px;
+}
+
+/* Uitklapknop styling */
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td:first-child .p-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 auto !important;
+}
+
+/* Voldoende ruimte tussen uitklapkolom en tekstkolom */
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th:nth-child(2),
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td:nth-child(2) {
+  padding-left: 1rem !important;
+}
+
+/* Score cel styling - geconsolideerd en gefixed */
+.score-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.score-text {
+  flex: 1; /* Neemt beschikbare ruimte in */
+}
+
+.score-indicator {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto; /* Duwt de indicator naar rechts */
+}
+
+/* Thumb en uitroepteken iconen */
+.thumb-icon, .exclamation-icon {
+  font-size: 12px;
+  color: white;
+  line-height: 1;
+}
+
+/* Kleurencodes voor de verschillende score niveaus */
+.score-excellent {
+  background-color: #4CAF50; /* Groen met duimpje */
+}
+
+.score-good {
+  background-color: #4CAF50; /* Groen */
+}
+
+.score-moderate {
+  background-color: #FFA726; /* Lichtoranje */
+}
+
+.score-poor {
+  background-color: #FF7043; /* Donkerder oranje */
+}
+
+/* Styling voor de uitklapbare rijen */
+.p-3 {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+h5 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 5px;
+}

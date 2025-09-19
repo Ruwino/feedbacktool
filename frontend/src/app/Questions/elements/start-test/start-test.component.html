@@ -1,0 +1,19 @@
+<div class="start-test-container">
+  <div class="test-info">
+    <h1 class="test-title">{{ testTitle }}</h1>
+
+    <div class="learning-objectives">
+      <h2>Leerdoelen</h2>
+      <ul class="objectives-list">
+        <li *ngFor="let objective of learningObjectives">{{ objective }}</li>
+      </ul>
+    </div>
+
+    <p class="test-instructions">
+      Hierboven staan de leerdoelen die in deze toets worden behandeld.
+      Lees de vragen goed door en beantwoord deze zorgvuldig. Aan het einde van de toets kan je zien wat de score is die je hebt behaald, succes!
+    </p>
+
+    <button pButton class="start-button" label="Start de toets" (click)="onStartTest()"> </button>
+  </div>
+</div>

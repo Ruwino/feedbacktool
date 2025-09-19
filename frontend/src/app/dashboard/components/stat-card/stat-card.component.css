@@ -1,0 +1,21 @@
+.stat-card {
+  background-color: white;
+  border-radius: 8px;
+  border: 1px #e6ebf1 solid;
+  height: 100%;
+}
+.icon-color-green {
+  color: var(--highlight-color);;
+}
+.icon-color-blue {
+  color: var(--primary-light-blue);
+}
+.icon-color-orange {
+  color: var(--primary-orange);
+}
+.text-green {
+  color: var(--primary-green);
+}
+.icon-color-yellow {
+  color: #FDCC0D;
+}

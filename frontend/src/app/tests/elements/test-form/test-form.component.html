@@ -1,0 +1,154 @@
+<form [formGroup]="formGroup" (ngSubmit)="submit()" id="main-container">
+    <div #contentContainer class="vertical-container">
+        <h1 class="group-container">{{title}}</h1>
+
+        <div class="group-container vertical-container">
+            <div class="horizontal-container">
+                <div class="p-fluid field">
+                    <label for="name" class="block">{{readOnly && 'Toets naam' || 'Geef de toets een naam'}}</label>
+                    <input type="text" pInputText placeholder="Naam" formControlName="name" />
+                    <div *ngIf="formControls.name.invalid && formControls.name.dirty" class="error-message">
+                        Naam is verplicht.
+                    </div>
+                </div>
+
+                <div class="p-fluid field">
+                    <label for="duration" class="block">{{readOnly && 'Toets duur' || 'Selecteer toets duur'}}</label>
+                    <p-calendar (onFocus)="onDurationFocus()" placeholder="--:--" [timeOnly]="true" [minDate]="minDuration" [defaultDate]="minDuration"
+                        formControlName="duration" />
+                    <div *ngIf="formControls.duration.invalid && formControls.duration.dirty" class="error-message">
+                        Toets duur is verplicht.
+                    </div>
+                </div>
+
+                <div class="p-fluid field">
+                    <label for="subject" class="block">{{readOnly && 'Vak' || 'Selecteer vak'}}</label>
+                    <p-dropdown selectedItemsLabel="{0} vakken geselecteerd" styleClass="w-15rem" [options]="dropdownSubjects" emptyFilterMessage="Geen resultaten" emptyMessage="Geen resultaten" placeholder="Vak" optionLabel="name"
+                        formControlName="subject" />
+                    <div *ngIf="formControls.subject.invalid && formControls.subject.dirty" class="error-message">
+                        Vak is verplicht.
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-fluid field ">
+                <label for="randomized" class="block">Hussel de vragen voor studenten</label>
+                <p-inputSwitch formControlName="randomized" />
+            </div>
+        </div>
+    
+        <div class="group-container vertical-container" #learningObjectivesContainer>
+            <div class="horizontal-container field">
+                <label class="title">Leerdoelen</label>
+                <div class="card flex justify-content-end">
+                    <p-button label="Creëer leerdoel" (onClick)="addLearningObjective(undefined, undefined)" *ngIf="!readOnly" [disabled]="inputDisabled" />
+                </div>
+            </div>
+    
+            <div class="p-fluid vertical-container" formArrayName="learningObjectives">
+                <div *ngFor="let learningObjective of formArrays.learningObjectives.controls; let i = index; trackBy: trackByIndex"
+                    [formGroupName]="i">
+                    <div class="horizontal-container">
+                        <input pInputText placeholder="Leerdoel" formControlName="name" [disabled]="inputDisabled" />
+    
+                        <p-button (click)="removeFormArrayItem(formArrays.learningObjectives, i)"
+                            styleClass="delete-button" *ngIf="!readOnly" [disabled]="inputDisabled">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </p-button>
+                    </div>
+    
+                    <div *ngIf="formArrays.learningObjectives.get(i.toString())?.invalid && formArrays.learningObjectives.get(i.toString())?.dirty"
+                        class="error-message">
+                        Vul leerdoel in.
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="group-container vertical-container">
+            <div class="horizontal-container">
+                <label class="title">Vragen</label>
+                <div class="card flex justify-content-end gap-3">
+                    <p-button label="Creëer openvraag" (onClick)="addQuestion(undefined, QuestionType.Open)" *ngIf="!readOnly" [disabled]="inputDisabled" />
+                    <p-button label="Creëer meerkeuzevraag" (onClick)="addQuestion(undefined, QuestionType.MultipleChoice)" *ngIf="!readOnly" [disabled]="inputDisabled" />
+                </div>
+            </div>
+    
+            <div class="p-fluid vertical-container" formArrayName="questions">
+                <div class="field question-group-container vertical-container" *ngFor="let question of formArrays.questions.controls; let i = index"
+                    [formGroupName]="i">
+                    <div>
+                        <div class="card flex justify-content-between align-items-center gap-4 field">
+                            <label *ngIf="question.get('type')?.value === QuestionType.MultipleChoice">Meerkeuze vraag</label>
+                            <label *ngIf="question.get('type')?.value === QuestionType.Open">Open vraag</label>
+
+                            <label>Vraag {{formArrays.questions.length - i}}</label>
+                        </div>
+        
+                        <div class="horizontal-container question-container">
+                            <div class="card flex flex-column justify-content-start gap-3">
+                                <textarea pInputTextarea placeholder="Vraag" [autoResize]="true" class="question-textarea"
+                                    formControlName="name">
+                                </textarea>
+                                <div>
+                                    <p-dropdown placeholder="Leerdoel" [options]="formArrays.learningObjectives.value"
+                                    optionLabel="name" formControlName="learningObjective" emptyMessage="Voeg een leerdoel toe" />
+                                </div>
+                            </div>
+                            <div *ngIf="question.get('type')?.value === QuestionType.MultipleChoice"
+                                class="card flex flex-column justify-content-start align-items-end gap-3"
+                                formArrayName="answers">
+                                <div *ngFor="let answer of getAnswersFormArray(question).controls; let i = index"
+                                    [formGroupName]="i" class="horizontal-container">
+                                    <p-checkbox [binary]="true" formControlName="correct"
+                                        (onChange)="onAnswersChanged(getAnswersFormArray(question))" />
+                                    <textarea rows="1" cols="50" pInputTextarea placeholder="Keuze" formControlName="name" [autoResize]="true" class="question-textarea"></textarea>
+                                    <p-button (onClick)="removeAnswer(getAnswersFormArray(question), i)"
+                                        styleClass="delete-button" *ngIf="!readOnly" [disabled]="inputDisabled"><i class="fa fa-trash" aria-hidden="true"></i></p-button>
+                                </div>
+                                <p-button label="Creëer keuze" class="question-button" [disabled]="getAnswersFormArray(question).length >= maxAnswersLength || inputDisabled"
+                                    (onClick)="addAnswer(getAnswersFormArray(question), undefined)" *ngIf="!readOnly" />
+                            </div>
+                            <div *ngIf="question.get('type')?.value === QuestionType.Open"
+                                class="card flex flex-column justify-content-start align-items-end gap-3"
+                                [formGroup]="getAnswersFormArray(question).at(0)">
+        
+                                <textarea placeholder="Correct antwoord" pInputTextarea [autoResize]="true"
+                                    class="question-textarea" formControlName="name"></textarea>
+                            </div>
+        
+                            <div class="card flex flex-column justify-content-start align-items-end gap-3"
+                                formArrayName="hints">
+                                <div *ngFor="let hint of getHintsFormArray(question).controls; let i = index"
+                                    class="horizontal-container" [formGroupName]="i">
+                                    <textarea rows="1" placeholder="Tip" [autoResize]="true" pInputTextarea formControlName="name" class="question-textarea"></textarea>
+                                    <p-button (onClick)="removeFormArrayItem(getHintsFormArray(question), i)"
+                                        styleClass="delete-button" *ngIf="!readOnly" [disabled]="inputDisabled"><i class="fa fa-trash" aria-hidden="true"></i></p-button>
+                                </div>
+                                <p-button label="Creëer tip" [disabled]="getHintsFormArray(question).length >= maxHintsLength || inputDisabled"
+                                    class="question-button" (onClick)="addHint(getHintsFormArray(question), undefined)" *ngIf="!readOnly" />
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="question-delete-container">
+                        <p-button (onClick)="removeFormArrayItem(formArrays.questions, i)"
+                        styleClass="delete-button" *ngIf="!readOnly" [disabled]="inputDisabled">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </p-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky-container horizontal-container">
+        <p-button label="Opslaan" styleClass="submit-button" type="submit" [disabled]="submitDisabled || inputDisabled" *ngIf="!readOnly && !(testModel && testModel.id && !editDisabled)"></p-button>
+
+        <p-button label="Bewerk" styleClass="submit-button" *ngIf="testModel && testModel.id && testModel.canEdit && !editDisabled" (onClick)="onEdit.emit()"></p-button>
+
+        <p-button label="Terug" styleClass="orange-button" (onClick)="onBack()"></p-button>
+    </div>
+</form>
+
+<p-toast />

@@ -1,0 +1,21 @@
+<div class="selected-student">
+  {{ studentName }}
+</div>
+
+<!-- Loading indicator -->
+<p-progressSpinner *ngIf="loading" styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+
+<div *ngIf="!loading">
+  <div *ngIf="showMessage" class="warning-message">
+    <ng-container *ngIf="viewMode === 'teacher'">
+      Er zijn geen cijfers beschikbaar voor de geselecteerde student.
+    </ng-container>
+    <ng-container *ngIf="viewMode === 'student'">
+      Er zijn momenteel geen cijfers beschikbaar.
+    </ng-container>
+  </div>
+
+  <div *ngIf="!showMessage" class="grade-table-container">
+    <app-grade-table [grades]="grades"></app-grade-table>
+  </div>
+</div>

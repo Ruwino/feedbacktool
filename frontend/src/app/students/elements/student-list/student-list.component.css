@@ -1,0 +1,59 @@
+.result-item {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin: 10px 0;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* CSS voor de error message */
+.error-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8d7da; /* Lichte rode achtergrond */
+    color: #721c24; /* Donkerrode tekstkleur */
+    padding: 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Eventueel nog wat styling voor de tekstkleur en het uitlijnen */
+  .error-message p {
+    margin: 0;
+  }
+
+.student-name {
+  background-color: #2f6fad;
+  color: white;
+  font-weight: bold;
+  padding: 15px;
+  min-width: 180px;
+  text-align: center;
+  border-radius: 6px 0 0 6px;
+}
+
+.goal,
+.score,
+.date {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.date {
+  text-align: right;
+}

@@ -1,0 +1,49 @@
+<div *ngIf="!hasStarted">
+  <app-start-test
+    (startTest)="startTest()"
+    [testId]="testId">
+  </app-start-test>
+</div>
+
+<div *ngIf="hasStarted && !hasFinished && questions.length > 0">
+  <app-open-question 
+    *ngIf="currentQuestion !== null && currentQuestion.questionType === 'Open'"
+    [question]="currentQuestion!"
+    [questionIndex]="currentQuestionIndex"
+    [totalQuestions]="questions.length"
+    [isCorrect]="isCorrect"
+    (onSubmit)="onSubmit($event)">
+  </app-open-question>
+
+  <app-multiple-choice 
+    *ngIf="currentQuestion !== null && currentQuestion.questionType === 'MultipleChoice'" 
+    [question]="currentQuestion!"
+    [questionIndex]="currentQuestionIndex"
+    [totalQuestions]="questions.length"
+    [isCorrect]="isCorrect"
+    (onSubmit)="onSubmit($event)">
+  </app-multiple-choice>
+</div>
+
+<div class="navigation" *ngIf="hasStarted && !hasFinished && questions.length > 0">
+  <p-button class="nav-button" (click)="previousQuestion()" [disabled]="currentQuestionIndex === 0">
+    Vorige
+  </p-button>
+    
+  <span class="question-number">
+    Vraag {{ currentQuestionIndex + 1 }} van de {{ questions.length }}
+  </span>
+
+  <p-button class="nav-button" (click)="currentQuestionIndex === questions.length - 1 ? finishTest() : nextQuestion()">
+    {{ currentQuestionIndex === questions.length - 1 ? 'Afronden' : 'Volgende' }}
+  </p-button> 
+</div>
+
+<div *ngIf="hasFinished">
+  <app-end-test></app-end-test>
+</div>
+
+<div *ngIf="showError" class="error-box">
+  {{ showError }}
+</div> 
+

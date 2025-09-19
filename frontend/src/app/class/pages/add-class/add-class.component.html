@@ -1,0 +1,69 @@
+<section class="section">
+  <div class="inner-container">
+    <h2>Nieuwe klas</h2>
+    <div class="input-fields">
+      <p-floatLabel class="input p-width">
+        <input id="class-name" type="text" [(ngModel)]="nieuweKlas" pInputText/>
+        <label for="class-name">klas</label>
+      </p-floatLabel>
+      <p-dropdown
+        [options]="grade"
+        [(ngModel)]="selectedGrade"
+        placeholder="Leerjaar"
+        class="input p-width"
+      />
+      <p-dropdown
+        [options]="subject"
+        [(ngModel)]="selectedSubject"
+        optionLabel="name"
+        optionValue="id"
+        placeholder="Vak"
+        class="input p-width"
+      />
+    </div>
+
+    <div class="student-container">
+      <h2 class="student-title">Studenten</h2>
+      <p>Selecteer studenten voor klas {{ nieuweKlas }}</p>
+      <div class="p-input-icon-left search-container">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText [(ngModel)]="searchTerm" placeholder="Zoek studenten op naam of email"
+               class="search-input">
+      </div>
+      <div class="student-list">
+        <p-progressBar *ngIf="loadingStudents" mode="indeterminate" [style]="{ height: '6px' }" />
+        <div *ngFor="let student of filteredStudents()" class="student-card">
+          <ng-container>
+            <div class="student-info">
+              <p-checkbox
+                [(ngModel)]="selectedStudents"
+                [binary]="false"
+                [value]="student">
+              </p-checkbox>
+              <div class="student-details">
+                <h3 class="student-name">{{ student.firstName + ' ' + student.lastName }}</h3>
+                <p>{{ student.email }}</p>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <div *ngIf="noStudentsFound" class="not-found">
+          <h2>Geen studenten gevonden</h2>
+        </div>
+      </div>
+      <div class="button-row">
+        <p class="selected-count">{{ selectedStudents.length }} studenten geselecteerd</p>
+        <button
+          pButton
+          label="Voeg klas toe"
+          icon="pi pi-check"
+          class="confirm-btn"
+          (click)="addClass()"
+          [disabled]="isSubmitting">
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+<p-toast />

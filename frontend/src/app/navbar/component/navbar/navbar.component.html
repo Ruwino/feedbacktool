@@ -1,0 +1,21 @@
+<header class="header" *ngIf="shouldShowNavbar()">
+  <img ngSrc="/assets/images/SkillUp.png" routerLink="/dashboard" alt="Logo" height="30" width="96" />
+  <nav>
+    <ng-container *ngFor="let item of navigationItems">
+      <a
+        [routerLink]="item.route"
+        routerLinkActive="active-link"
+        class="menu-item"
+      >
+        {{ item.label }}
+      </a>
+    </ng-container>
+  </nav>
+  <button
+    pButton
+    pRipple
+    label="Uitloggen"
+    routerLink="/login"
+    icon="pi pi-user"
+  ></button>
+</header>

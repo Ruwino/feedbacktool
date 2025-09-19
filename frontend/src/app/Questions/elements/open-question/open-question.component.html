@@ -1,0 +1,21 @@
+<div class="quiz-container mt-6">
+    <h2 class="question">{{ question.question }}</h2>
+    <hr>
+    <textarea 
+        class="answer-box"
+        placeholder="Vul je antwoord in..."
+        [(ngModel)]="answer"
+        [class.correct]="hasSubmitted && isCorrect"
+        [class.incorrect]="hasSubmitted && !isCorrect"
+        >
+    </textarea>
+    <div class="mt-3">
+        <p-button styleClass="submit-button" (click)="submit(answer)" [disabled]="!answer.trim() || isCorrect === true">Controleer antwoord</p-button>
+    </div>
+</div>
+
+<div class="mt-3" *ngIf="hints.length > 0">
+    <ul>
+        <li class="hint-box" *ngFor="let hint of hints.slice(-3)">{{ hint }}</li>
+    </ul>
+</div>

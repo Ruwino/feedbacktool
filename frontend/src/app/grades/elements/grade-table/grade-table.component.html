@@ -1,0 +1,65 @@
+<p-table
+  [value]="grades"
+  styleClass="grade-table-custom"
+  [expandedRowKeys]="expandedRows"
+  dataKey="id"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th></th>
+      <th>Toets</th>
+      <th>Score</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-grade let-expanded="expanded">
+    <tr>
+      <td style="text-align: center">
+        <button
+          type="button"
+          pButton
+          pRipple
+          [pRowToggler]="grade"
+          class="p-button-text p-button-rounded p-button-plain"
+          [icon]="expanded ? 'pi pi-folder-open' : 'pi pi-folder'"
+        ></button>
+      </td>
+      <td>{{ grade.subject }}</td>
+      <td>
+        <div class="score-cell">
+          <span>{{ grade.score }}</span>
+          <div
+            class="score-indicator"
+            [ngClass]="getScoreCircleClass(grade.percentage)"
+          >
+            <i
+              *ngIf="showThumbsUp(grade.percentage)"
+              class="fa-solid fa-thumbs-up thumb-icon"
+            ></i>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="rowexpansion" let-grade>
+    <tr>
+      <td colspan="3">
+        <div class="p-3">
+          <h5>Leerdoelen</h5>
+          <ul>
+            <li *ngFor="let objective of grade.learningObjectives">
+              {{ objective }}
+            </li>
+            <li
+              *ngIf="
+                !grade.learningObjectives ||
+                grade.learningObjectives.length === 0
+              "
+            >
+              Geen specifieke leerdoelen gedefinieerd.
+            </li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -1,0 +1,62 @@
+stages:
+  - install
+  - lint
+  - build
+  - test
+
+variables:
+  PORT: 3000
+  DATABASE_DIALECT: mysql
+  FRONTEND_URL: http://localhost:4200
+
+install:
+  stage: install
+  image: node:22
+  script:
+    - cd src
+    - npm ci
+  tags:
+    - hva
+  only:
+    - branches
+
+lint:
+  stage: lint
+  image: node:22
+  script:
+    - cd src
+    - npm ci
+    - npm run lint --fix
+  tags:
+    - hva
+  only:
+    - branches
+
+build:
+  stage: build
+  image: node:22
+  dependencies:
+    - install
+  script:
+    - cd src
+    - npm ci
+    - npm run build
+  tags:
+    - hva
+  only:
+    - branches
+
+test:
+  stage: test
+  image: node:22
+  allow_failure: true
+  dependencies:
+    - install
+  script:
+    - cd src
+    - npm ci
+    - npm test
+  tags:
+    - hva
+  only:
+    - branches

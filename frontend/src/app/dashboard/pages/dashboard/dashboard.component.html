@@ -1,0 +1,186 @@
+<div *ngIf="isStudent">
+  <div class="px-4 pt-3 md:px-6 lg:px-8">
+    <div class="grid">
+      <div class="col-12 md:col-6 lg:col-4">
+        <app-stat-card
+          [title]="madeTestsStats.title"
+          [stat]="madeTestsStats.stat"
+          [icon]="madeTestsStats.icon"
+          [color]="madeTestsStats.color"
+          [subStat]="madeTestsStats.subStat"
+          [subText]="madeTestsStats.subText"/>
+      </div>
+      <div class="col-12 md:col-6 lg:col-4">
+        <app-stat-card
+          [title]="bestObjective.title"
+          [stat]="bestObjective.stat"
+          [icon]="bestObjective.icon"
+          [color]="bestObjective.color"
+          [subStat]="bestObjective.subStat"
+          [subText]="bestObjective.subText"/>
+      </div>
+      <div class="col-12 md:col-6 lg:col-4">
+        <app-stat-card
+          [title]="streakStats.title"
+          [stat]="streakStats.stat"
+          [icon]="streakStats.icon"
+          [color]="streakStats.color"
+          [subStat]="streakStats.subStat"
+          [subText]="streakStats.subText"/>
+      </div>
+    </div>
+  </div>
+  <div class="px-4 pt-3 md:px-6 lg:px-8">
+    <div class="grid">
+      <div class="col-12 md:col-6 lg:col-4">
+        <app-test-column [test]="recommendedTests"></app-test-column>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!isStudent">
+  <div class="px-4 pt-3 md:px-6 lg:px-8">
+    <div class="flex justify-content-between align-items-end">
+      <div class="flex flex-column">
+        <label for="selectClass">Selecteer een klas</label>
+        <p-dropdown
+          [options]="classes"
+          [(ngModel)]="selectedClass"
+          optionLabel="name"
+          placeholder="Selecteer een klas"
+          id="selectClass"/>
+      </div>
+      <div class="row">
+        <button pButton pRipple (click)="createClass()" class="mr-1">
+          Nieuwe klas
+          <i class="fa-solid fa-plus ml-1"></i>
+        </button>
+        <button pButton pRipple (click)="createTest()">
+          Nieuwe toets
+          <i class="fa-solid fa-plus ml-1"></i>
+        </button>
+      </div>
+    </div>
+    <div class="grid mt-3">
+      <div class="col-12 md:col-6 lg:col-4">
+        <app-stat-card *ngIf="averageScoreStats"
+          [title]="averageScoreStats.title"
+          [stat]="averageScoreStats.stat"
+          [icon]="averageScoreStats.icon"
+          [color]="averageScoreStats.color"
+          [subStat]="averageScoreStats.subStat"
+          [subText]="averageScoreStats.subText"/>
+      </div>
+      <div class="col-12 md:col-6 lg:col-4">
+        <app-stat-card *ngIf="worstObjectiveStats"
+          [title]="worstObjectiveStats.title"
+          [stat]="worstObjectiveStats.stat"
+          [icon]="worstObjectiveStats.icon"
+          [color]="worstObjectiveStats.color"
+          [subStat]="worstObjectiveStats.subStat"
+          [subText]="worstObjectiveStats.subText"/>
+      </div>
+      <div class="col-12 md:col-6 lg:col-4">
+        <app-stat-card *ngIf="totalTestsStats"
+          [title]="totalTestsStats.title"
+          [stat]="totalTestsStats.stat"
+          [icon]="totalTestsStats.icon"
+          [color]="totalTestsStats.color"
+          [subStat]="totalTestsStats.subStat"
+          [subText]="totalTestsStats.subText"/>
+      </div>
+      <div class="col-12 mt-3 flex align-items-center">
+        <p-multiSelect
+          [options]="allStudents"
+          [(ngModel)]="selectedStudents"
+          optionLabel="firstName"
+          placeholder="Voeg studenten toe"
+          display="chip">
+          <ng-template let-item pTemplate="chip">
+            {{ item.email }}
+          </ng-template>
+        </p-multiSelect>
+        <button pButton pRipple (click)="addStudentToClass()" class="ml-1 h-100" [disabled]="selectedStudents.length === 0">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+      <div class="mt-3 col-8">
+        <p-table [value]="students" responsiveLayout="scroll">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Email</th>
+              <th>Voornaam</th>
+              <th>Achternaam</th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-student>
+            <tr>
+              <td>{{ student.email }}</td>
+              <td>{{ student.firstName }}</td>
+              <td>{{ student.lastName }}</td>
+              <td><i class="pi pi-trash icon-color-red cursor-pointer" (click)="deleteStudent(student.email, $event)"></i></td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="mt-3 col-4">
+        <p-table [value]="classTests" responsiveLayout="scroll">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Naam</th>
+              <th>Duur</th>
+              <th class="flex justify-content-end">Toegang</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-classTest>
+            <tr>
+              <td>
+                <a [routerLink]="['/test', classTest.id]">{{ classTest.name }}</a>
+              </td>              
+              <td>{{ classTest.duration }}</td>
+              <td class="flex justify-content-end">
+                <p-toggleButton
+                  [(ngModel)]="classTest.visible"
+                  onIcon="pi pi-lock-open"
+                  offIcon="pi pi-lock"
+                  pTooltip="{{ classTest.visible ? 'Open' : 'Dicht' }}"
+                  tooltipPosition="left"
+                  (onChange)="setVisibility(classTest)"
+                />
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast/>
+<p-confirmDialog #cd>
+  <ng-template pTemplate="headless" let-message>
+    <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+      <div class="border-circle inline-flex justify-content-center align-items-center h-6rem w-6rem">
+        <i class="pi pi-exclamation-triangle icon-color-orange text-7xl"></i>
+      </div>
+      <span class="font-bold text-2xl block mb-2 mt-4">
+                {{ message.header }}
+            </span>
+      <p class="mb-0">{{ message.message }}</p>
+      <div class="flex align-items-center gap-2 mt-4">
+        <button
+          pButton
+          label="Verwijderen"
+          (click)="cd.accept()"
+          class="w-8rem">
+        </button>
+        <button
+          pButton
+          label="Annuleren"
+          (click)="cd.reject()"
+          class="p-button-outlined w-8rem ">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</p-confirmDialog>

@@ -1,0 +1,34 @@
+.icon-color-orange {
+  color: var(--primary-orange);
+}
+.icon-color-yellow {
+  color: #FDCC0D;
+}
+.icon-color-red {
+  color: var(--primary-red);
+}
+.objective-card {
+  background-color: white;
+  border-radius: 8px;
+  border: 1px #e6ebf1 solid;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.objective-row {
+  display: flex;
+  align-items: center;
+}
+.p-dropdown {
+  width: auto !important;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+a:hover {
+  color: var(--primary-dark-blue);
+}

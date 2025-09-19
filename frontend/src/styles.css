@@ -1,0 +1,126 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+/* Custom PrimeNG Theme */
+:root {
+  --primary-color: #1A3A5F;
+  --primary-text-color: #ffffff;
+  --secondary-color: #F3F9FF;
+  --button-bg: #2877B5;
+  --button-text: #ffffff;
+  --highlight-color: #A0DA79;
+  --primary-dark-blue: #2877B5;
+  --primary-blue: #3F72AF;
+  --primary-light-blue: #74B3CE;
+  --primary-teal: #2E6D66;
+  --primary-green: #4CAF50;
+  --primary-light-green: #A0DA79;
+  --primary-orange: #F4A261;
+  --primary-red: #FF6B6B;
+}
+
+/* PrimeNG Custom Theme Overrides */
+:root {
+  --surface-ground: var(--primary-light-blue);
+  --surface-card: #ffffff;
+  --surface-border: var(--primary-teal);
+  --text-color: #333333;
+  --primary-color-text: #ffffff;
+
+  /* Button colors */
+  --button-bg: var(--primary-dark-blue);
+  --button-text-color: #ffffff;
+  --button-hover-bg: var(--primary-blue);
+
+  /* Menu colors */
+  --menubar-bg: var(--primary-blue);
+  --menubar-text-color: #ffffff;
+  --menubar-hover-bg: var(--primary-teal);
+
+  /* Accent */
+  --accent-color: var(--primary-orange);
+}
+
+
+/* General Page Styling */
+body {
+  background-color: var(--secondary-color);
+  font-family: 'Inter', sans-serif;
+  color: var(--primary-color);
+  margin: 0;
+}
+.p-button.p-button-outlined {
+  background-color: transparent;
+  color: #3B82F6;
+  border: 1px solid;
+}
+/* PrimeNG Buttons */
+.p-button {
+  background-color: var(--button-bg);
+  border: none;
+  color: var(--button-text);
+  border-radius: 8px;
+}
+
+.p-button:hover {
+  background-color: darken(#1E3A5F, 10%);
+}
+
+/* Tabs (Navigation) */
+.p-tabmenu .p-tabmenu-nav {
+  background: var(--secondary-color);
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.p-tabmenu .p-tabmenu-nav li.p-highlight {
+  background: var(--primary-color);
+  color: var(--primary-text-color);
+}
+
+.p-tabmenu .p-tabmenu-nav li a {
+  color: var(--primary-color);
+}
+
+/* Cards */
+.p-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  padding: 16px;
+}
+
+/* Filter Buttons */
+.p-togglebutton {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.p-togglebutton.p-highlight {
+  background-color: var(--primary-color);
+  color: var(--primary-text-color);
+}
+
+/* Login Button */
+.login-button {
+  background: var(--highlight-color);
+  color: #1E3A5F;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 8px 16px;
+}
+
+.submit-button {
+  background: var(--primary-light-green);
+}
+
+.orange-button {
+  background: var(--primary-orange);
+}
+
+.input-fields .p-dropdown {
+  width: 100%;
+}
+p {
+  margin: 0;
+}

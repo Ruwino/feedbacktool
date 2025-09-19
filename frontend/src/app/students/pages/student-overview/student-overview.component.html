@@ -1,0 +1,14 @@
+<div class="student-overview-container">
+  <div class="results-header-container">
+    <div class="results-header">
+      <p-dropdown 
+        [options]="classes" 
+        [(ngModel)]="selectedClass" 
+        placeholder="Selecteer een klas"
+        (onChange)="onClassChange()">
+      </p-dropdown>
+    </div>
+  </div>
+
+  <app-student-list [results]="results" [selectedClass]="selectedClass"></app-student-list>
+</div>

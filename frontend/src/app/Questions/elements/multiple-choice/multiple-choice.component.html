@@ -1,0 +1,26 @@
+<div class="quiz-container mt-6">
+    <h2 class="question">{{ question.question }}</h2>
+    <hr>
+    <div class="options">
+        <button 
+        *ngFor="let answer of question.answers; let i = index"
+        class="option"
+        (click)="selectAnswer(answer, i)"
+        [class.selected]="i === selectedAnswerIndex"
+        [class.correct]="hasSubmitted === true && i === selectedAnswerIndex && isCorrect === true"
+        [class.incorrect]="hasSubmitted === true && i === selectedAnswerIndex && isCorrect === false"
+        [disabled]="isCorrect === true">
+        {{ answer }}
+        </button>
+    </div>
+    
+    <div class="mt-3">
+        <p-button styleClass="submit-button" (click)="submit()" [disabled]="!selectedAnswer || isCorrect === true">Controleer antwoord</p-button>
+    </div>
+</div>
+
+<div class="mt-3" *ngIf="hints.length > 0">
+    <ul>
+        <li class="hint-box" *ngFor="let hint of hints.slice(-3)">{{ hint }}</li>
+    </ul>
+</div>

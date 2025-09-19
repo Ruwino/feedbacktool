@@ -1,0 +1,110 @@
+#main-container {
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+.group-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.question-group-container {
+    background-color: #F3F9FF;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.vertical-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.button-container {
+    margin-left: auto;
+}
+
+.horizontal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.horizontal-container>* {
+    flex-grow: 1;
+}
+
+.question-container {
+    display: flex;
+    justify-content: start;
+    align-items: stretch;
+}
+
+.question-container>* {
+    width: 150px;
+}
+
+.question-button {
+    width: 80%;
+}
+
+.question-textarea {
+    flex-grow: 1;
+    height: 100%;
+    text-align: left;
+    vertical-align: text-top;
+}
+
+.title {
+    font-size: larger;
+}
+
+.p-fluid input {
+    width: 100%;
+}
+
+label {
+    white-space: nowrap;
+}
+
+.switch-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.sticky-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+:host ::ng-deep .delete-button {
+    background: red;
+    border: red;
+}
+
+::ng-deep .p-toast {
+    position: fixed !important;
+    bottom: 20px;
+    left: 20px;
+    right: auto;
+    top: auto;
+}
+
+
+.question-delete-container {
+    align-self: flex-end;
+    margin-top: auto;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 2px;
+    position: absolute;
+}

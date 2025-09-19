@@ -1,0 +1,190 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+    color: #1A3A5F;
+}
+
+
+
+::ng-deep body {
+    background: #F3F9FF;
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+main {
+    font-weight: 200;
+}
+
+
+section {
+    padding: 3rem 0;
+}
+
+.container {
+    max-width: 1250px;
+    margin: 0 auto;
+}
+
+.sub-hero {
+    font-size: 1.6rem;
+    font-weight: 500;
+    padding: .8em;
+    background: #ffffff;
+    border-radius: 25px;
+}
+
+
+.filter-buttons {
+    display: inline-block;
+    margin-bottom: 25px;
+}
+
+
+.overview {
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 2rem;
+
+}
+
+
+
+.subject {
+    width: 31%;
+}
+
+
+.subject-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1A3A5F;
+    padding: .8em;
+    font-size: 1rem;
+    font-weight: 100;
+}
+
+.subject-header h2 {
+    color: #ffffff;
+    font-weight: 100;
+}
+
+
+
+
+.test-title,
+.test-info {
+    display: block;
+    color: #1A3A5F;
+}
+
+.test-title {
+    font-size: 1.2rem;
+    margin-bottom: .4em;
+}
+
+.test-info {
+    font-size: .8rem;
+}
+
+.test {
+    position: relative;
+    padding: .8em;
+    background: #ffffff;
+}
+
+.test:hover {
+    color: #2877B5;
+}
+
+.test-list {
+    max-height: 220px;
+    overflow-y: auto;
+    background: #ffffff;
+}
+
+
+
+.btn {
+    padding: .4em 1.2em;
+}
+
+
+.btn-filter {
+    background: #ffffff;
+    border: 1px solid #2877B5;
+    border-radius: 25px;
+    color: #2877B5;
+    margin-right: 15px;
+}
+
+
+.btn-filter:hover {
+    background: #2877B5;
+    color: #ffffff;
+}
+
+.btn-filter.active {
+    background: #2877B5;
+    color: #ffffff;
+}
+
+.play-btn {
+    position: absolute;
+    top: 25%;
+    right: 25px;
+    background: #FF9F45;
+    color: #ffffff;
+    padding: .5em .6em;
+    border-radius: 40px;
+}
+
+
+.play-btn svg {
+
+    fill: #ffffff;
+}
+
+
+.dropdown {
+    background: #ffffff;
+    width: 125px;
+}
+
+.dropdown-list {
+    padding: 5px;
+}
+
+.dropdown-btn svg {
+    width: 10px;
+}
+
+.dropdown-list.closed {
+    display: none;
+}
+
+.error-message {
+    color: #1A3A5F;
+    padding: .8em;
+    font-size: 1.2rem;
+    text-align: center;
+}

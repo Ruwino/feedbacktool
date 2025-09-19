@@ -1,0 +1,13 @@
+.container {
+    text-align: center;
+    padding: 50px;
+}
+
+p {
+    margin-bottom: 3rem;
+    font-size: 1.6rem;
+}
+
+h1 {
+    font-size: 3rem;
+}

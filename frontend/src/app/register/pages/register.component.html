@@ -1,0 +1,58 @@
+<div class="register-wrapper">
+    <div id="register-container">
+        <h2 style="padding-bottom: 25px;">Registratie</h2>
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+            <div class="name-fields">
+                <div>
+                    <input type="text" formControlName="firstName" placeholder="Voornaam" required>
+                    <span class="error" *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+                        Voornaam is verplicht
+                    </span>
+                </div>
+                <div>
+                    <input type="text" formControlName="lastName" placeholder="Achternaam" required>
+                    <span class="error" *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+                        Achternaam is verplicht
+                    </span>
+                </div>
+            </div>
+
+            <input type="email" formControlName="email" placeholder="Email" required>
+            <span class="error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                Voer een geldig e-mailadres in
+            </span>
+
+            <input type="password" formControlName="password" placeholder="Wachtwoord" required>
+            <span class="error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                Wachtwoord moet minimaal 8 tekens zijn
+            </span>
+
+            <input type="password" formControlName="confirmPassword" placeholder="Herhaal wachtwoord" required>
+            <span class="error" *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched">
+                Wachtwoorden komen niet overeen
+            </span>
+
+            <input type="text" formControlName="registerCode" placeholder="Code voor registratie" required>
+            <span class="error" *ngIf="registerForm.get('registerCode')?.invalid && registerForm.get('registerCode')?.touched">
+                Code voor registratie is verplicht
+            </span>
+            
+            <br><br>
+            <p-multiSelect 
+                [options]="subjects" 
+                formControlName="selectedSubjects" 
+                placeholder="Selecteer vakken" 
+                optionLabel="name"
+                [showToggleAll]="false"
+                display="chip">
+            </p-multiSelect>
+            <span class="error" *ngIf="registerForm.get('selectedSubjects')?.invalid && registerForm.get('selectedSubjects')?.touched">
+                Selecteer minstens één vak
+            </span>
+            
+            <br><br>
+            <button type="submit">Registreren</button>
+        </form>
+    </div>
+    <p-toast></p-toast>
+</div>
